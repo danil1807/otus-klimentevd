@@ -1,6 +1,7 @@
 package utils;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,6 +24,18 @@ public class DateUtil {
     return convertDateToString(soonestDate.get());
   }
 
+  public static String getTheSoonestDateUsingReduce(List<String> strings) {
+    List<Calendar> dates = new ArrayList<>();
+    for (String string : strings) {
+      var date = extractDateFromString(string);
+      date.ifPresent(dates::add);
+    }
+
+    var result = dates.stream()
+      .reduce((date1, date2) -> date1.compareTo(date2) <= 0 ? date1 : date2);
+    return convertDateToString(result.get());
+  }
+
   public static String getTheLatestDate(List<String> strings) throws ParseException {
     List<Calendar> dates = new ArrayList<>();
     for (String string : strings) {
@@ -39,7 +52,7 @@ public class DateUtil {
     var year = date.get(Calendar.YEAR);
 
     var string = "С " + day + " " + months[month];
-    if (year != 2022) {
+    if (year != LocalDate.now().getYear()) {
       string = "С " + day + " " + months[month] + " " + year + " года";
     }
     return string;
@@ -56,7 +69,7 @@ public class DateUtil {
         values.add(string.substring(matcher.start(), matcher.end()));
       }
       var day = Integer.parseInt(values.get(0));
-      var year = 2022;
+      var year = LocalDate.now().getYear();
       if (values.size() > 1) {
         year = Integer.parseInt(values.get(1));
       }

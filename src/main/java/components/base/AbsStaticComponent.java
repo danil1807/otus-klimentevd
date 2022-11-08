@@ -2,11 +2,11 @@ package components.base;
 
 import annotations.Component;
 import components.AbsComponent;
+import java.lang.annotation.Annotation;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.lang.annotation.Annotation;
 
 public abstract class AbsStaticComponent<T> extends AbsComponent<T> {
 

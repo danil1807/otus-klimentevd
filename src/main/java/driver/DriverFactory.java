@@ -2,9 +2,9 @@ package driver;
 
 import driver.impl.ChromeWebDriver;
 import exceptions.DriverTypeNotSupported;
+import java.util.Locale;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
-import java.util.Locale;
 
 public class DriverFactory implements IDriverFactory {
 
